@@ -6,3 +6,7 @@ flax        # use flax or equinox
 
 numpy
 pygame
+
+# for video recording
+imageio
+imageio-ffmpeg

@@ -214,20 +214,18 @@ class PygameFrontend:
 
     def handle_keys(self):
         keys = pygame.key.get_pressed()
-        action = jnp.array([0.0, 0.0], dtype=jnp.float32)
+        throttle = 0.0
+        steer = 0.0
         if keys[pygame.K_UP] or keys[pygame.K_w]:
-            action += jnp.array([0, 1])
+            throttle += 1.0
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
-            action += jnp.array([0, -1])
+            throttle -= 1.0
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            action += jnp.array([-1, 0])
+            steer -= 1.0
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            action += jnp.array([1, 0])
+            steer += 1.0
 
-        action = (
-            action / jnp.linalg.norm(action) if jnp.any(jnp.abs(action) > 0) else action
-        )
-        return action
+        return jnp.array([throttle, steer], dtype=jnp.float32)
 
     def run(self):
         while self.running:
